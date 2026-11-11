@@ -324,6 +324,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
 .rel-dl b{color:var(--orange-ink)!important}
 @media (max-width:1180px){.related{grid-template-columns:repeat(3,1fr)}}
 
+#estToggle.flash{animation:flash 1.2s ease-out 2}
+
+/* form footer tidy */
+#formMsg:empty{display:none}
+.form-foot{flex-direction:column;align-items:flex-start;gap:14px}
+.form-foot p{max-width:none}
+@media (min-width:900px){.form-foot p{white-space:nowrap}}
+.drop .hint{display:block;line-height:1.7}
 /* hero interactive */
 .iso{cursor:default}
 .plate{transition:filter .4s,box-shadow .4s}
@@ -561,7 +569,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
       <label class="drop" id="estDrop" for="estFile">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
         <strong>拖曳使用手冊到這裡，或點選選擇檔案</strong>
-        <span class="hint">可一次選取多個檔案，也可分次加入。支援 PDF、Word、PowerPoint、Excel、ZIP；PDF 與 .docx 會用於初步預估</span>
+        <span class="hint">可一次選取多個檔案，也可分次加入<br>支援 PDF、Word、PowerPoint、Excel、ZIP；PDF 與 .docx 會用於初步預估</span>
         <input type="file" id="estFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip" multiple>
         <ul class="files" id="estFiles"></ul>
       </label>
@@ -700,14 +708,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
       <label class="drop" id="drop" for="f-file">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
         <strong id="dropTitle">上傳產品使用手冊或規格書</strong>
-        <span class="hint">拖曳檔案到這裡，或點選選擇檔案。可一次選取多個檔案，也可分次加入（PDF、Word、PowerPoint、Excel、ZIP）</span>
+        <span class="hint">拖曳檔案到這裡，或點選選擇檔案<br>可一次選取多個檔案，也可分次加入（PDF、Word、PowerPoint、Excel、ZIP）</span>
         <input type="file" id="f-file" name="manual" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip" multiple>
         <ul class="files" id="fileList"></ul>
       </label>
 
       <p id="formMsg" role="status"></p>
       <div class="form-foot">
-        <p>資料僅用於評估測試範圍與報價，並依保密義務妥善保護；除執行檢測所需的合作實驗室外，不會提供給第三方。</p>
+        <p>資料僅用於評估範圍與報價，並依保密義務保護；除合作實驗室外，不提供給第三方。</p>
         <button class="btn btn-primary" type="submit">送出，取得範圍與報價</button>
       </div>
     </form>
@@ -731,7 +739,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
     </div>
     <h3 class="subhead">延伸閱讀</h3>
     <div class="related">
-      <a class="js-dl rel-dl" data-loc="related" href="SVS-Lab-資安檢測服務簡介-2026.pdf" download><b>下載完整簡報（PDF）</b><span>Made in Taiwan 產品的資安檢測：三大領域、服務優勢與檢測流程一次看</span></a>
+      <a class="js-dl rel-dl" data-loc="related" href="SVS-Lab-資安檢測服務簡介-2026.pdf" download><b>下載完整簡報（PDF）</b><span>台灣在地的資安檢測：服務優勢、三大領域與檢測流程一次看</span></a>
       <a href="https://securevectorlab.com/zh-hant/en-18031" target="_blank" rel="noopener"><b>EN 18031 檢測</b><span>適用判斷、8 步檢測流程與送測準備清單</span></a>
       <a href="https://securevectorlab.com/zh-hant/eu-cra" target="_blank" rel="noopener"><b>EU CRA 網路韌性法案</b><span>產品分類與符合性評估路徑</span></a>
       <a href="https://securevectorlab.com/zh-hant/medical-device-testing" target="_blank" rel="noopener"><b>醫療器材資安</b><span>FDA、EU MDR 資安檢測</span></a>
@@ -970,7 +978,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   const panel=$('#estPanel'),toggle=$('#estToggle');
   function openEst(scroll){
     panel.hidden=false;toggle.setAttribute('aria-expanded','true');
-    if(scroll)$('#estimate').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    if(scroll){
+      $('#estimate').scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+      setTimeout(()=>{toggle.classList.remove('flash');void toggle.offsetWidth;toggle.classList.add('flash');toggle.focus({preventScroll:true});},reduce?0:700);
+    }
   }
   toggle.addEventListener('click',()=>{if(panel.hidden){track('estimate_open',{link_location:'process'});openEst(false);setTimeout(()=>$('#estFile').click(),50);}else{panel.hidden=true;toggle.setAttribute('aria-expanded','false');}});
   $$('.js-open-est').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();track('estimate_open',{link_location:a.closest('header')?'header':'hero'});openEst(true);}));
