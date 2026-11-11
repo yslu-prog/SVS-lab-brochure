@@ -332,6 +332,24 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
 .form-foot p{max-width:none}
 @media (min-width:900px){.form-foot p{white-space:nowrap}}
 .drop .hint{display:block;line-height:1.7}
+
+/* consult dialog */
+.dl-actions{display:flex;flex-wrap:wrap;gap:12px}
+dialog#consult{border:0;border-radius:12px;padding:0;max-width:640px;width:calc(100% - 32px);color:var(--ink);box-shadow:0 30px 80px rgba(6,43,64,.35)}
+dialog#consult::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
+dialog#consult[open]{animation:panelIn .35s var(--ease)}
+.c-form{display:block;padding:32px;background:var(--surface);grid-template-columns:none;position:relative}
+.c-form h2{font-size:26px;margin-bottom:8px}
+.c-lead{color:var(--muted)}
+.c-steps{margin:14px 0 20px;padding-left:20px;color:var(--muted);font-size:15px}
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
+.c-close{position:absolute;top:12px;right:14px;width:40px;height:40px;border:0;background:none;font-size:28px;line-height:1;color:var(--muted);cursor:pointer;border-radius:6px}
+.c-close:hover{background:var(--paper)}
+.c-form .hint{margin:4px 0 16px}
+.c-msg{font-size:15px;color:var(--teal-ink);min-height:0}
+.c-msg:empty{display:none}
+.c-msg.err{color:#C0392B}
+@media (max-width:600px){.c-grid{grid-template-columns:1fr}.c-form{padding:24px 20px}}
 /* hero interactive */
 .iso{cursor:default}
 .plate{transition:filter .4s,box-shadow .4s}
@@ -612,18 +630,24 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
   <div class="wrap contact-grid">
     <div>
       <h2 id="contact-h">從檢測需求開始</h2>
-      <p class="lead" id="contactLead"><span id="leadA">請簡述產品需求並留下聯絡資訊，一併上傳產品使用手冊或規格書，可加快評估速度。</span><br>我們將於 10 個工作天內提供測試範圍與報價。</p>
+      <p class="lead" id="contactLead"><span id="leadA">請簡述產品需求並留下聯絡資訊，若上傳產品使用手冊或規格書，可加快評估速度。</span><br>我們將盡快提供測試範圍與報價。</p>
       <ol>
         <li>檢測工程師檢視產品資訊</li>
         <li>視需要安排簡短通話，確認範圍</li>
         <li>提供書面測試範圍、時程與報價</li>
       </ol>
       <div class="dl-box">
-        <p>需要與團隊討論？</p>
-        <a class="btn btn-ghost-light js-dl" data-loc="contact" href="SVS-Lab-資安檢測服務簡介-2026.pdf" download>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
-          下載簡介 PDF
-        </a>
+        <p>需要與實驗室進一步討論？</p>
+        <div class="dl-actions">
+          <a class="btn btn-ghost-light js-dl" data-loc="contact" href="SVS-Lab-資安檢測服務簡介-2026.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+            下載簡介 PDF
+          </a>
+          <button type="button" class="btn btn-ghost-light" id="consultOpen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            預約諮詢
+          </button>
+        </div>
       </div>
     </div>
     <!-- TODO：action 請改為實際的表單接收端 -->
@@ -728,14 +752,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
     <div class="faq">
       <details><summary>送測需要準備什麼？</summary>
         <div class="body">一般建議提供 3 台樣品，實際數量依測試項目調整，例如需要拆機的硬體測試。文件方面，請提供產品使用手冊，以及既有的技術文件，例如規格書、系統架構圖或先前的測試報告。範圍確認後，我們會提供完整的送測清單。</div></details>
-      <details><summary>產品資料與樣品如何保密？可以簽保密協議嗎？</summary>
-        <div class="body">可以。正式委託前可先簽署保密協議（NDA）。產品資料與樣品僅用於本次檢測，並依 ISO/IEC 17025 的保密要求管理。測試結束後，樣品依雙方約定歸還或處理；經拆解的樣品可能無法恢復原狀。</div></details>
       <details><summary>費用怎麼計算？</summary>
         <div class="body">費用依測試範圍而定，例如是否包含 App 與伺服器、開啟的無線介面數量。送出需求後，我們將於約 10 個工作天內提供書面範圍與報價。</div></details>
-      <details><summary>修補期間會影響時程嗎？</summary>
-        <div class="body">6–8 週不含修補時間。發現項目會即時說明，修補完成後只複測未通過的項目，以縮短整體時程。</div></details>
+      <details><summary>產品資料與樣品如何保密？可以簽保密協議嗎？</summary>
+        <div class="body">可以。正式委託前可先簽署保密協議（NDA）。產品資料與樣品僅用於本次檢測，並依 ISO/IEC 17025 的保密要求管理。測試結束後，樣品依雙方約定歸還或處理；經拆解的樣品可能無法恢復原狀。</div></details>
       <details><summary>雲端後端與 App 算在測試範圍內嗎？</summary>
         <div class="body">視產品架構而定。資料若會上傳至伺服器儲存或運算，通常需要一併納入。僅用於控制裝置的 App 無法單獨認證，須與裝置一起測試。</div></details>
+      <details><summary>修補期間會影響時程嗎？</summary>
+        <div class="body">6–8 週不含修補時間。發現項目會即時說明，修補完成後只複測未通過的項目，以縮短整體時程。</div></details>
     </div>
     <h3 class="subhead">延伸閱讀</h3>
     <div class="related">
@@ -748,6 +772,30 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
   </div>
 </section>
 
+<dialog id="consult" aria-labelledby="consult-h">
+  <form method="dialog" class="c-form" id="consultForm" novalidate>
+    <button type="button" class="c-close" id="consultClose" aria-label="關閉">×</button>
+    <h2 id="consult-h">預約諮詢</h2>
+    <p class="c-lead">告訴我們你的產品，我們會整理出該測試的項目，以及下一步該怎麼走。</p>
+    <ol class="c-steps">
+      <li>實驗室團隊審閱你的產品資訊，1–2 個工作天內回覆</li>
+      <li>簡短通話，確認產品範圍與測試需求</li>
+      <li>書面範疇、時程與報價，不強制簽約</li>
+    </ol>
+    <div class="c-grid">
+      <div class="field"><label for="c-name">姓名 <span class="req">*</span></label><input type="text" id="c-name" name="name" autocomplete="name"></div>
+      <div class="field"><label for="c-email">公司信箱 <span class="req">*</span></label><input type="email" id="c-email" name="email" autocomplete="email"></div>
+      <div class="field"><label for="c-company">公司 <span class="req">*</span></label><input type="text" id="c-company" name="company" autocomplete="organization"></div>
+      <div class="field"><label for="c-country">國家</label><input type="text" id="c-country" name="country" autocomplete="country-name"></div>
+      <div class="field full"><label for="c-need">您的需求 <span class="req">*</span></label>
+        <select id="c-need" name="need"><option value="">請選擇服務</option><option>EU CRA 符合性</option><option>醫療器材資安（FDA &amp; MDR）</option><option>支付與金融認證</option><option>資安／滲透測試</option><option>其他</option></select></div>
+      <div class="field full"><label for="c-msg">留言</label><textarea id="c-msg" name="message"></textarea></div>
+    </div>
+    <p class="c-msg" id="consultMsg" role="status"></p>
+    <p class="hint">送出本表單即表示您同意我們就您的詢問與您聯繫。我們不會將您的資料提供給第三方。</p>
+    <button type="submit" class="btn btn-primary" value="submit">送出</button>
+  </form>
+</dialog>
 </main>
 
 <footer>
@@ -1002,6 +1050,23 @@ document.addEventListener('DOMContentLoaded',()=>{
     $('#leadA').textContent='預估內容已帶入表單，請補充其他需求並留下聯絡資訊。';
     $('#contact').scrollIntoView({behavior:reduce?'auto':'smooth'});
     setTimeout(()=>$('#f-company').focus({preventScroll:true}),reduce?0:700);
+  });
+
+  /* 預約諮詢 */
+  const dlg=$('#consult'),cf=$('#consultForm'),cm=$('#consultMsg');
+  $('#consultOpen').addEventListener('click',()=>{track('consult_open',{link_location:'contact'});cm.textContent='';cm.className='c-msg';dlg.showModal();setTimeout(()=>$('#c-name').focus(),50);});
+  $('#consultClose').addEventListener('click',()=>dlg.close());
+  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close();});
+  cf.addEventListener('submit',e=>{
+    e.preventDefault();const miss=[];
+    if(!$('#c-name').value.trim())miss.push('姓名');
+    if(!$('#c-email').value.trim())miss.push('公司信箱');
+    if(!$('#c-company').value.trim())miss.push('公司');
+    if(!$('#c-need').value)miss.push('您的需求');
+    if(miss.length){cm.className='c-msg err';cm.textContent='請填寫：'+miss.join('、');return;}
+    if(!$('#c-email').checkValidity()){cm.className='c-msg err';cm.textContent='Email 格式不正確，請再確認一次。';return;}
+    track('consult_request',{service:$('#c-need').value});
+    cm.className='c-msg';cm.textContent='感謝您——我們已收到您的詢問，將於一個工作天內回覆。（示範版本，尚未連接表單系統）';
   });
 
   /* 表單條件題 */
