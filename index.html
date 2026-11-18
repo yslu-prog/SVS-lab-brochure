@@ -494,6 +494,7 @@ dialog#dlgate::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
 .hero-photo.paused .hd-toggle .i-pause{display:none}
 .hero-photo.paused .hd.run::after{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){.hd-toggle{display:none}}
+@media (max-width:600px){.br-d{display:none}}
 </style>
 </head>
 <body>
@@ -533,11 +534,11 @@ dialog#dlgate::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
       <p class="position badges reveal"><span class="hb nw">ISO/IEC 17025 認可實驗室</span><span class="hb nw">Applus+ Laboratories 聯盟夥伴</span></p>
       <h1 class="reveal h1-long">CRA、MDR 及<span class="nw">全球市場准入的</span><br>資安檢測實驗室</h1>
       <p class="sub reveal">
-        <span>從消費電子、物聯網到高門檻的醫療與支付設備，安合規律提供接軌國際的資安檢測。</span>
-        <span>測試範圍精準對應各國規範要求，加速合規流程，讓產品順利取得全球市場通行證。</span>
+        <span>從消費電子、物聯網到高門檻的醫療與支付設備，<br class="br-d">安合規律提供接軌國際的資安檢測。</span>
+        <span>測試範圍精準對應各國規範要求，加速檢測及驗證流程，<br class="br-d">讓產品順利取得全球市場通行證。</span>
       </p>
       <div class="actions reveal">
-        <a class="btn btn-primary" href="#contact">預約檢測評估</a>
+        <a class="btn btn-primary" href="#contact">取得測試範圍與報價</a>
         <a class="btn btn-line" href="#domains">查看我的產品適用哪些法規</a>
       </div>
     </div>
@@ -566,9 +567,9 @@ dialog#dlgate::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
       <article class="pillar rv"><span class="num">02</span><h3>依功能精準測，<span class="nw">報價固定不追加</span></h3>
         <p>依產品功能定義範圍，只測必要項目。單一型號即可委託；範圍確認後固定報價，範圍不變不加價。</p></article>
       <article class="pillar rv"><span class="num">03</span><h3>彈性排程，<span class="nw">僅複測未通過項目</span></h3>
-        <p>配合上市時程彈性排程，可處理急件。異常即時通報，修補後只複測未通過項目。</p></article>
+        <p>配合上市時程彈性排程，可處理急件。異常即時通報改正，修補後只複測未通過項目。</p></article>
       <article class="pillar rv"><span class="num">04</span><h3>一套資安檢測文件，<span class="nw">延伸多國法規</span></h3>
-        <p>依目標市場規劃範圍。報告與 SBOM 可銜接 CRA，EN 18031-3 測試證據亦可延用，避免重複測試。</p></article>
+        <p>依目標市場規劃範圍。報告與 SBOM 可銜接 CRA，EN 18031-3 證據亦可延用；醫療器材一套報告可同時對應 FDA 與 MDR，避免重複測試。</p></article>
     </div>
   </div>
 </section>
@@ -640,7 +641,7 @@ dialog#dlgate::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
     <ol class="track" id="track"><span class="run" aria-hidden="true"></span>
       <li class="step"><span class="dot">01</span><h3>專案啟動與需求盤點</h3><span class="en">Requirement Assessment</span><p>您只需提供產品功能、聯網介面、目標市場與使用手冊，我們以此展開評估。</p></li>
       <li class="step"><span class="dot">02</span><h3>測試範疇定義與報價</h3><span class="en">Scope &amp; Quotation</span><span class="when">約 5–10 個工作天</span><p>出具詳細的測試範圍（Test Plan）與正式報價，確認檢測邊界。</p></li>
-      <li class="step"><span class="dot">03</span><h3>技術檢測與複測</h3><span class="en">Testing &amp; Iterative Retesting</span><span class="when">最快約 6–8 週出具初版報告<small>修補時間另計</small></span><p>樣品與文件齊備後起算，發現漏洞即時通報，修補後只複測未通過項目。</p></li>
+      <li class="step"><span class="dot">03</span><h3>技術檢測與複測</h3><span class="en">Testing &amp; Iterative Retesting</span><span class="when">最快約 6–8 週出具初版報告<small>修補時間另計</small></span><p>樣品與文件齊備後起算，發現漏洞即時通報改正，修補後只複測未通過項目。</p></li>
       <li class="step"><span class="dot">04</span><h3>報告核發與合規送審</h3><span class="en">Report Issuance &amp; Submission</span><p>依 ISO/IEC 17025 出具檢測報告，可作為自我宣告（DoC）的技術文件佐證，或提供公告機構作為評估參考。</p></li>
     </ol>
   </div>
@@ -773,7 +774,7 @@ dialog#dlgate::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
       <p id="formMsg" role="status"></p>
       <div class="form-foot">
         <p>資料僅用於評估範圍與報價，並依保密義務保護；除合作實驗室外，不提供給第三方。</p>
-        <button class="btn btn-primary" type="submit">預約檢測評估</button>
+        <button class="btn btn-primary" type="submit">取得測試範圍與報價</button>
       </div>
     </form>
   </div>
