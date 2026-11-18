@@ -495,6 +495,7 @@ dialog#dlgate::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
 .hero-photo.paused .hd.run::after{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){.hd-toggle{display:none}}
 @media (max-width:600px){.br-d{display:none}}
+.hd-toggle{display:none!important}
 </style>
 </head>
 <body>
@@ -1075,7 +1076,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   function setPaused(v){paused=v;hero.classList.toggle('paused',v);tg.setAttribute('aria-label',v?'播放輪播':'暫停輪播');tg.title=v?'播放輪播':'暫停輪播';
     if(v){clearTimeout(ht);hdt.forEach(d=>d.classList.remove('run'));}else{hshow(hi);hloop();}}
   tg.addEventListener('click',()=>setPaused(!paused));
-  hdt.forEach((d,i)=>d.addEventListener('click',()=>{hshow(i);hloop();track('hero_domain',{product_domain:hsl[i].dataset.k});}));
+  hdt.forEach((d,i)=>d.addEventListener('click',()=>{hshow(i);hloop();const k=hsl[i].dataset.k;track('hero_domain',{product_domain:k});
+    const tab=$('#tab-'+k);if(tab){tab.click();$('#domains').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(()=>tab.focus({preventScroll:true}),reduce?0:600);}}));
   document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(ht);else if(!paused){hshow(hi);hloop();}});
   hshow(0);hloop();
 
