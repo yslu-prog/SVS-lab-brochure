@@ -312,6 +312,19 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justif
 @media (max-width:860px){.track .run{left:21px;top:28px}@keyframes runv{0%{top:28px;opacity:0}5%{opacity:1}92%{opacity:1}100%{top:calc(100% - 42px);opacity:0}}.track.loop .run{animation-name:runv}}
 
 
+
+/* hero DM download */
+.hero .reveal:nth-child(5){animation-delay:.4s}
+.dl-dm{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.dl-dm-label{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#A9E9EC;white-space:nowrap}
+.dl-dm-label svg{width:18px;height:18px}
+.dl-dm-list{display:flex;flex-wrap:wrap;gap:8px}
+.dm{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px 0 10px;border:1px solid rgba(255,255,255,.35);border-radius:999px;color:#fff;text-decoration:none;font-size:14px;line-height:1.2;transition:background .2s,border-color .2s,transform .2s var(--ease)}
+.dm::before{content:"PDF";font:700 10px/1 var(--font);letter-spacing:.05em;color:var(--deep);background:#A9E9EC;border-radius:4px;padding:3px 5px}
+.dm:hover{background:rgba(255,255,255,.1);border-color:#fff;transform:translateY(-1px)}
+.dm.on{border-color:var(--teal);background:rgba(35,182,188,.18)}
+.dm.on::before{background:var(--teal);color:#fff}
+@media (max-width:560px){.dl-dm{flex-direction:column;align-items:flex-start}.dm{width:100%}}
 /* brochure download */
 .dl-hero{margin-top:18px;font-size:15px}
 .dl-hero a{color:#A9E9EC;text-decoration:none;border-bottom:1px solid rgba(169,233,236,.5);padding-bottom:1px}
@@ -541,6 +554,15 @@ dialog#dlgate::backdrop{background:rgba(6,43,64,.6);backdrop-filter:blur(3px)}
       <div class="actions reveal">
         <a class="btn btn-primary" href="#contact">取得測試範圍與報價</a>
         <a class="btn btn-line" href="#domains">查看我的產品適用哪些法規</a>
+      </div>
+      <div class="dl-dm reveal">
+        <span class="dl-dm-label" id="dm-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>下載服務 DM</span>
+        <div class="dl-dm-list" role="group" aria-labelledby="dm-h">
+          <a class="dm" data-k="iot" href="files/svs-eu-cra-digital-products-flyer-zh-tw.pdf" download>具數位元素的產品・CRA</a>
+          <a class="dm" data-k="pay" href="files/svs-payment-fintech-cra-flyer-zh-tw.pdf" download>金融與支付產品・CRA</a>
+          <!-- 醫療器材 DM 上傳後啟用：<a class="dm" data-k="med" href="files/svs-medical-device-testing-flyer-zh-tw.pdf" download>醫療器材資安檢測</a> -->
+          <a class="dm" data-k="pen" href="files/svs-security-penetration-testing-flyer-zh-tw.pdf" download>資安檢測與滲透測試</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1069,7 +1091,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   /* 首屏：領域圖片輪播（淡入淡出，可暫停） */
   const hero=$('#top'),hsl=$$('.hs'),hdt=$$('.hd'),tg=$('#heroToggle'),DUR=4000;let hi=0,ht=null,paused=false;
   hero.style.setProperty('--dur',DUR+'ms');
-  function hshow(i){hi=i;hsl.forEach((m,j)=>m.classList.toggle('on',j===i));
+  const dms=$$('.dm');dms.forEach(a=>a.addEventListener('click',()=>track('flyer_download',{flyer:a.dataset.k})));
+  function hshow(i){hi=i;hsl.forEach((m,j)=>m.classList.toggle('on',j===i));const hk=hsl[i].dataset.k;dms.forEach(a=>a.classList.toggle('on',a.dataset.k===hk));
     hdt.forEach((d,j)=>{d.setAttribute('aria-pressed',j===i);d.classList.remove('run');});
     if(!reduce&&!paused){void hdt[i].offsetWidth;hdt[i].classList.add('run');}}
   function hloop(){clearTimeout(ht);if(reduce||paused)return;ht=setTimeout(()=>{hshow((hi+1)%hsl.length);hloop();},DUR);}
